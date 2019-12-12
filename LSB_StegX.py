@@ -19,7 +19,6 @@ def bits_tostring(data, num_bits):
             shift = 0
     return result
 
-
 def string2bits(in_str, num_bits):
     # Returns a list of n bit values from a string.
     # in_str    the string to generate n bit values from
@@ -45,12 +44,17 @@ eoc_marker = "\0"
 if mode == 'E':
 
 # Hard-coded currently, so two.bmp must be present within the source folder.
+
     image = Image.open('two.bmp')
     pixels = list(image.getdata())
+
 # Maximum message length depends on overall size of image.
+
     plaintext = input("What message would you like to hide? \n")
     plaintext = plaintext + eoc_marker
+
 # Bit-depth choice will help illustrate variance in image degradation.
+
     num_bits = input("How many bits would you like to encrypt with? (1/2/4/8) \n")
     num_bits = int(num_bits)
 
@@ -64,7 +68,9 @@ if mode == 'E':
     nbit_tuples = []
     for x in encode_iter:
         nbit_tuples.append((x, next(encode_iter), next(encode_iter)))
+	
     # Here, we begin encoding into the pixels themselves.
+
     encode_mask = (2 ** num_bits - 1) ^ 0b11111111
     for (pix, nbits) in zip(pixels, nbit_tuples):
         (r, g, b) = pix
@@ -73,13 +79,17 @@ if mode == 'E':
         new_g = (g & encode_mask) | e_g
         new_b = (b & encode_mask) | e_b
         new_pixels.append((new_r, new_g, new_b))
+	
 # Note that we save into two_encoded.bmp.
+
     image.putdata(new_pixels)
     image.save('two_encoded.bmp')
     print("[E]ncoding complete.")
 
 if mode == 'D':
+	
 # Decrypting from our saved two.encoded.bmp.
+
     image_encoded = Image.open('two_encoded.bmp')
     pixels_encoded = list(image_encoded.getdata())
 
