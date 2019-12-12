@@ -57,9 +57,7 @@ if mode == 'E':
 
     num_bits = input("How many bits would you like to encrypt with? (1/2/4/8) \n")
     num_bits = int(num_bits)
-
     new_pixels = []
-
     nbit_text = string2bits(plaintext, num_bits)
 
     while len(nbit_text) % 3:
@@ -92,9 +90,7 @@ if mode == 'D':
 
     image_encoded = Image.open('two_encoded.bmp')
     pixels_encoded = list(image_encoded.getdata())
-
     decoded_pixels = []
-
     num_bits = input("How many bits would you like to decrypt with? (1-8)\n")
     num_bits = int(num_bits)
 
